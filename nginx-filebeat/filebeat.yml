@@ -12,10 +12,15 @@ filebeat:
   prospectors:
     -
       paths:
-        - /var/log/syslog
-        - /var/log/auth.log
-      document_type: syslog
+        - "/tmp/Equip_log_files/*.log"
+      document_type: log
     -
       paths:
-        - "/var/log/nginx/*.log"
-      document_type: nginx-access
+        - "/tmp/Equip_log_files/*.log"
+      document_type: log
+      
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      co.elastic.logs/module: logs
