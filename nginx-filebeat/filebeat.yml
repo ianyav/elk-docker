@@ -23,4 +23,6 @@ filebeat.autodiscover:
   providers:
     - type: docker
       hints.enabled: true
-      co.elastic.logs/module: logs
+      co.elastic.logs/module: system
+      co.elastic.logs/fileset.stdout: access
+      co.elastic.logs/fileset.stderr: error
