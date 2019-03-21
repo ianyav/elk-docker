@@ -38,7 +38,7 @@ RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${
 ### tweak nginx image set-up
 
 # remove log symlinks
-RUN rm /var/log/nginx/access.log /var/log/nginx/error.log
+RUN rm /tmp/Equip_log_files
 
 
 ### configure Filebeat
@@ -53,15 +53,6 @@ ADD logstash-beats.crt /etc/pki/tls/certs/logstash-beats.crt
 
 # create template based on filebeat version (assumption: it is the same version as elasticsearch version)
 RUN filebeat export template --es.version ${FILEBEAT_VERSION} > /etc/filebeat/filebeat.template.json
-
-###############################################################################
-#                                    DATA
-###############################################################################
-
-### add dummy HTML file
-
-COPY html /usr/share/nginx/html
-
 
 ###############################################################################
 #                                    START
