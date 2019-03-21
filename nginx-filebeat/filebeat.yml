@@ -23,6 +23,12 @@ filebeat.autodiscover:
   providers:
     - type: docker
       hints.enabled: true
-      co.elastic.logs/module: system
-      co.elastic.logs/fileset.stdout: access
-      co.elastic.logs/fileset.stderr: error
+      templates:
+        - condition:
+            contains:
+              docker.container.image: ianyav1996cesuser/crec_demo_repository
+            config:
+               - type: docker
+                 containers.ids:
+                   - "${data.docker.container.id}"
+                 exclude_lines: ["^\\s+[\\-'('.|_]"]
