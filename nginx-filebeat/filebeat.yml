@@ -1,3 +1,13 @@
+processors: 
+- dissect:
+    tokenizer: "%{,}"
+    field: "message"
+    
+filebeat.inuts:
+- type: log
+  paths:
+    - /tmp/Equip_log_files/*.log
+
 output:
   logstash:
     enabled: true
@@ -7,17 +17,6 @@ output:
     ssl:
       certificate_authorities:
       - /etc/pki/tls/certs/logstash-beats.crt
-
-filebeat:
-  prospectors:
-    -
-      paths:
-        - "/tmp/Equip_log_files/*.log"
-      document_type: log
-    -
-      paths:
-        - "/tmp/Equip_log_files/*.log"
-      document_type: log
       
 filebeat.autodiscover:
   providers:
