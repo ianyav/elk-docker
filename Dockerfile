@@ -170,6 +170,9 @@ ADD ./kibana.yml ${KIBANA_HOME}/config/kibana.yml
 ADD ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
+ADD generatedata.py
+RUN generatedata.py
+
 EXPOSE 5601 9200 9300 5044
 VOLUME /var/lib/elasticsearch
 
