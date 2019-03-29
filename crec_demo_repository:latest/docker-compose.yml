@@ -1,0 +1,21 @@
+# Docker Compose file for ELK stack
+
+# Build with:
+# docker-compose build elk
+
+# Run with:
+# docker-compose up
+
+generatedata:
+  image: ianyav1996cesuser/crec_docker:latest
+  ports:
+    - "80:80"
+  links:
+    - elk
+
+elk:
+  image: ianyav1996cesuser/crec_demo_repository:latest
+  ports:
+    - "5601:5601"
+    - "9200:9200"
+    - "5044:5044"

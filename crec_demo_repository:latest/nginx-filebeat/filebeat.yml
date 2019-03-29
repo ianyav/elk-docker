@@ -1,0 +1,33 @@
+processors: 
+- dissect:
+    tokenizer: "%{,}"
+    field: "message"
+    
+filebeat.inuts:
+- type: log
+  paths:
+    - /tmp/Equip_log_files/*.log
+
+output:
+  logstash:
+    enabled: true
+    hosts:
+      - elk:5044
+    timeout: 15
+    ssl:
+      certificate_authorities:
+      - /etc/pki/tls/certs/logstash-beats.crt
+      
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      templates:
+        - condition:
+            contains:
+              docker.container.image: ianyav1996cesuser/crec_demo_repository
+            config:
+               - type: docker
+                 containers.ids:
+                   - "${data.docker.container.id}"
+                 exclude_lines: ["^\\s+[\\-'('.|_]"]
